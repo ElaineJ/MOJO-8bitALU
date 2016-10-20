@@ -1,0 +1,33 @@
+module adder (
+    input a[8],  
+    input b[8],
+    input aLUFN[6],  
+    output z,
+    output v,
+    output n,
+    output s[8] //output sum
+    ) {
+    sig out[8]; // temp storage space for sum such that error will not be thrown 
+  
+  
+  always {
+    out = 8b0;  //8 bit, 'out' is to hold the sum s
+
+    case(out){  
+      0: z=1;  //z which is true when s outputs are all 0
+      default: z=0;
+      }
+    
+    case(aLUFN[0]){   //consider the xor gate
+      0: out = a + b;
+      1: out = a - b;
+      default:out=0;
+    }
+  
+  s = out;
+  n = out[7]; //considered the cases when n is high and low 
+  v = a[7] & b[7] & !out[7] | !a[7] & !b[7] & out[7]; // v output
+  }
+  
+  
+}
